@@ -6,7 +6,9 @@ import { resolve } from 'path';
 import * as vscode from 'vscode';
 const axios = require("axios");
 //initiate file with OPENAI API Key
-require("dotenv").config();
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '/Users/reaahuja/Documents/Javascript-learning/documentationext/src/.env') });
+
 
 function getLanguage():any {
 	return new Promise((resolve, reject) => {
@@ -48,7 +50,7 @@ function getLanguage():any {
 //  // }
 
  async function httpRequest(language: string | undefined){
-	vscode.window.showInformationMessage("API Key: " +  process.env.OPENAI_API_KEY);
+	//vscode.window.showInformationMessage("API Key: " +  process.env.OPENAI_API_KEY);
 	const { Configuration, OpenAIApi } = require("openai");
 
 	const configuration = new Configuration({
@@ -58,10 +60,10 @@ function getLanguage():any {
 
 	const completion = await openai.createChatCompletion({
 	model: "gpt-3.5-turbo",
-	messages: [{role: "user", content: "Hello world"}],
+	messages: [{role: "user", content: `give link to the documentation for the language: ${language}, and nothing else`}],
 	});
-	vscode.window.showInformationMessage("Info here: " + completion.data.choices[0].message);
-	return completion.data.choices[0].message;
+	//vscode.window.showInformationMessage("Info here: " + completion.data.choices[0].message.content);
+	return completion.data.choices[0].message.content;
 
  }
   
@@ -81,7 +83,7 @@ function coreFunction() {
 			vscode.window.showInformationMessage("Retrieving documentation...");	
 		
 		   let value = httpRequest(language);
-		   let retain = JSON.stringify(value);
+		   //let retain = JSON.stringify(value);
 		   //vscode.window.showInformationMessage("Info:" + retain);	
 		   return value;
 		})
