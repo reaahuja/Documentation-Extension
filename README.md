@@ -1,6 +1,8 @@
 # documentationext README
 
-Coming soon!
+Note: Could not upload node.modules folder as its too big, and did not upload .env file that stores the OPEN_AI_KEY due to privacy concerns. 
+
+Rest coming soon!
 <!-- 
 ## Features
 
